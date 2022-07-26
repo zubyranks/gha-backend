@@ -1,10 +1,7 @@
-name: Deploy
+name: Workflow2
 on:
   repository_dispatch:
     types: [builds]
-  # push:
-  #   branches:
-  #     - master
 
 jobs:
   build:
