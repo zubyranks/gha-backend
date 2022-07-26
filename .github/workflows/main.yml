@@ -1,9 +1,11 @@
 name: Deploy
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - master
+  repository_dispatch:
+    types: [builds]
+  # push:
+  #   branches:
+  #     - master
+
 jobs:
   build:
     name: Run API
@@ -12,5 +14,5 @@ jobs:
       - name: Build API
         run: |
           echo "Build API"
-          echo "${{ github.event.client_payload.git-version }}"
-          sleep 10s
+          echo "${{ github.event.client_payload.git-tag }}"
+          # sleep 10s
