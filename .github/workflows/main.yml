@@ -11,8 +11,6 @@ jobs:
     name: Run API
     runs-on: ubuntu-latest
     steps:
-      - name: Build API
+      - name: Check git-tag
         run: |
-          echo "Build API"
           echo "${{ github.event.client_payload.git-tag }}"
-          # sleep 10s
