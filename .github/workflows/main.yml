@@ -12,4 +12,5 @@ jobs:
       - name: Build API
         run: |
           echo "Build API"
+          echo "${{ github.event.client_payload.release_url }}"
           sleep 10s
