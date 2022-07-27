@@ -5,7 +5,7 @@ on:
     types: [builds]
 
 jobs:
-  build:
+  terraform_plan_apply:
     env:
       MY_CURRENT_TAG: "${{ github.event.client_payload.git-tag }}"
     name: Run API
@@ -23,4 +23,5 @@ jobs:
     - name: Replace Deployment tag with latest version 
       run: |
         pwd
-        ls -la /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls
+        cd /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls && sed -n 's/workflow_lab_repo_0.0.155/'$MY_CURRENT_TAG'/g' config_values.yml
+        cat /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls/config_values.yml
