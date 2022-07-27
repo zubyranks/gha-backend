@@ -2,7 +2,7 @@ name: Workflow2
 on:
   # push:
   repository_dispatch:
-    types: [builds]
+    types: [workflow_lab]
 
 jobs:
   terraform_plan_apply:
@@ -23,4 +23,4 @@ jobs:
     - name: Replace Deployment tag with latest version 
       run: |
         pwd
-        cd /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls && sed -i 's/workflow_lab_repo_0.0.155/$MY_CURRENT_TAG/g' config_values.yml && cat config_values.yml
+        cd /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls && sed -i 's/workflow_lab_repo_0.0.155/'$MY_CURRENT_TAG'/g' config_values.yml && cat config_values.yml
