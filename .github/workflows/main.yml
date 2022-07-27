@@ -17,9 +17,10 @@ jobs:
         run: |
           echo "v1.1.1" > git_tag.txt
           echo "v1.1.1" > GIT_TAG
-          cat git_tag.txt
-          $GIT_TAG
+          echo $GIT_TAG
+          ls -la
+          printenv
       - name: Replace Deployment tag with latest version 
         run: |
           pwd
-          ls -la /gha-backend/Infra/Terraform/service_yamls 
+          ls -la /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls 
