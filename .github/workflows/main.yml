@@ -19,7 +19,7 @@ jobs:
         cat git_tag.txt
         printenv
 
-    - name: Replace Deployment tag with latest version 
+    - name: Replace Deployment tag with latest version.
       run: |
         pwd
         cd $GITHUB_WORKSPACE/Infra/Terraform/service_yamls && sed -i 's/workflow_lab_repo_0.0.155/'$MY_CURRENT_TAG'/g' config_values.yml && cat config_values.yml
