@@ -1,7 +1,6 @@
 name: Workflow2
 on:
-  # repository_dispatch:
-  workflow_dispatch:
+  repository_dispatch:
     types: [workflow_lab]
 
 jobs:
