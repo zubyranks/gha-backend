@@ -1,0 +1,60 @@
+# https://github.com/dagster-io/dagster/blob/master/helm/dagster/values.yaml
+# this file should include only dagster values which we are customizing
+dagit:
+  service:
+    type: NodePort
+
+  workspace:
+    enabled: true
+    servers:
+      - host: "gha-frontend-repo"
+        port: 5000
+
+ingress:
+  enabled: true
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: ${aws_lb_ssl_cert}
+    alb.ingress.kubernetes.io/ip-address-type: ipv4
+    alb.ingress.kubernetes.io/inbound-cidrs: ${inbound_cidrs}
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/tags: ${aws_lb_tags}
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/subnets: ${private_subnets}
+    kubernetes.io/ingress.class: alb
+  dagit:
+    host: ${dagit_host}
+
+postgresql:
+  enabled: false
+  postgresqlHost: ${pg_host}
+  postgresqlUsername: ${pg_user}
+  postgresqlDatabase: ${pg_db}
+  service:
+    port: 5432
+
+computeLogManager:
+  type: S3ComputeLogManager
+  config:
+    s3ComputeLogManager:
+      # TODO: get this from env var
+      bucket: "${env}-dagster-pipelines.upside-services.com"
+      localDir: /tmp
+      prefix: dagster-compute-logs
+      useSsl: true
+      verify: false
+      skipEmptyFiles: true
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: ${service_account_role_arn}
+
+dagster-user-deployments:
+  enabled: true
+  enableSubchart: true
+  deployments:
+    - name: "workflow-lab-repo"
+      image:
+        repository: ${ecr_image}
+        tag: workflow_lab_repo_0.0.155
+        pullPolicy: Always

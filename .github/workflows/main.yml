@@ -1,14 +1,25 @@
 name: Workflow2
 on:
-  repository_dispatch:
-    types: [builds]
+  push:
+  # repository_dispatch:
+  #   types: [builds]
 
 jobs:
   build:
     name: Run API
     runs-on: ubuntu-latest
     steps:
-      - name: Check git-tag
+      # - name: Check git-tag
+      #   run: |
+      #     echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
+      #     cat git_tag.txt
+      - name: Echo version to txt file
         run: |
-          echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
+          echo "v1.1.1" > git_tag.txt
+          echo "v1.1.1" > GIT_TAG
           cat git_tag.txt
+          $GIT_TAG
+      - name: Replace Deployment tag with latest version 
+        run: |
+          pwd
+          ls -la /gha-backend/Infra/Terraform/service_yamls 
