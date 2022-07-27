@@ -10,4 +10,5 @@ jobs:
     steps:
       - name: Check git-tag
         run: |
-          echo "${{ github.event.client_payload.git-tag }}"
+          echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
+          cat git_tag.txt
