@@ -1,24 +1,18 @@
 name: Workflow2
 on:
-  push:
-  # repository_dispatch:
-  #   types: [builds]
+  # push:
+  repository_dispatch:
+    types: [builds]
 
 jobs:
   build:
     name: Run API
     runs-on: ubuntu-latest
     steps:
-      # - name: Check git-tag
-      #   run: |
-      #     echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
-      #     cat git_tag.txt
-      - name: Echo version to txt file
+      - name: Check git-tag
         run: |
-          echo "v1.1.1" > git_tag.txt
-          echo "v1.1.1" > GIT_TAG
-          echo $GIT_TAG
-          ls -la
+          echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
+          cat git_tag.txt
           printenv
       - name: Replace Deployment tag with latest version 
         run: |
