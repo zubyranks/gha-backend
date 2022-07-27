@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    env:
+      MY_CURRENT_TAG: "${{ github.event.client_payload.git-tag }}"
     name: Run API
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +16,8 @@ jobs:
           echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
           cat git_tag.txt
           printenv
+
       - name: Replace Deployment tag with latest version 
         run: |
           pwd
-          ls -la /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls 
+          ls -la /home/runner/work/gha-backend/gha-backend
