@@ -22,4 +22,4 @@ jobs:
     - name: Replace Deployment tag with latest version 
       run: |
         pwd
-        cd /home/runner/work/gha-backend/gha-backend/Infra/Terraform/service_yamls && sed -i 's/workflow_lab_repo_0.0.155/'$MY_CURRENT_TAG'/g' config_values.yml && cat config_values.yml
+        cd GITHUB_WORKSPACE/Infra/Terraform/service_yamls && sed -i 's/workflow_lab_repo_0.0.155/'$MY_CURRENT_TAG'/g' config_values.yml && cat config_values.yml
