@@ -18,6 +18,10 @@ jobs:
         echo "${{ github.event.client_payload.git-tag }}" > git_tag.txt
         cat git_tag.txt
         printenv
+    
+    - name: Workflow_lab tag 
+      run: |
+        echo $MY_CURRENT_TAG
 
     - name: Replace Deployment tag with latest version 
       run: |
