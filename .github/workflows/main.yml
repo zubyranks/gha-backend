@@ -22,6 +22,9 @@ jobs:
     - name: Workflow_lab tag 
       run: |
         echo $MY_CURRENT_TAG
+        echo 'workflow_lab_$MY_CURRENT_TAG'
+        echo 'workflow_lab_${{ env.MY_CURRENT_TAG }}'
+
 
     - name: Replace Deployment tag with latest version 
       run: |
